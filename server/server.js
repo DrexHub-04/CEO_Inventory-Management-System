@@ -578,7 +578,9 @@ async function start() {
   });
 
   app.listen(PORT, () => {
-    console.log(`Backend running on http://localhost:${PORT}`);
+    const env = process.env.NODE_ENV || 'development';
+    const url = env === 'production' ? 'Deployed on Render' : `http://localhost:${PORT}`;
+    console.log(`[server] Backend running on port ${PORT} (${url})`);
   });
 }
 
