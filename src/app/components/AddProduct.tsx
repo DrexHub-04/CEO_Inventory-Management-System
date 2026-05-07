@@ -81,10 +81,11 @@ export default function AddProduct() {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block mb-2 font-medium text-gray-700">
+              <label htmlFor="name" className="block mb-2 font-medium text-gray-700">
                 P.O Number *
               </label>
               <input
+                id="name"
                 type="text"
                 name="name"
                 value={formData.name}
@@ -95,8 +96,9 @@ export default function AddProduct() {
             </div>
 
             <div>
-              <label className="block mb-2 font-medium text-gray-700">Property Number *</label>
+              <label htmlFor="sku" className="block mb-2 font-medium text-gray-700">Property Number *</label>
               <input
+                id="sku"
                 type="text"
                 name="sku"
                 value={formData.sku}
@@ -107,8 +109,9 @@ export default function AddProduct() {
             </div>
 
             <div>
-              <label className="block mb-2 font-medium text-gray-700">Category *</label>
+              <label htmlFor="category" className="block mb-2 font-medium text-gray-700">Category *</label>
               <select
+                id="category"
                 name="category"
                 value={formData.category}
                 onChange={handleChange}

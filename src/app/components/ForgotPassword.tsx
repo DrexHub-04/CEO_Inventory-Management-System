@@ -22,7 +22,7 @@ export default function ForgotPassword() {
       return;
     }
     try {
-      const res = await fetch("http://localhost:5000/api/forgot-password", {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/forgot-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, newPassword }),
@@ -50,13 +50,13 @@ export default function ForgotPassword() {
         <h2 className="text-xl font-semibold mb-4">Forgot Password</h2>
         <form onSubmit={submit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Username</label>
-            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required className="w-full px-3 py-2 border rounded" />
+            <label htmlFor="username" className="block text-sm font-medium text-gray-700">Username</label>
+            <input id="username" name="username" type="text" value={username} onChange={(e) => setUsername(e.target.value)} required className="w-full px-3 py-2 border rounded" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">New Password</label>
+            <label htmlFor="newPassword" className="block text-sm font-medium text-gray-700">New Password</label>
             <div className="relative">
-              <input type={showNewPassword ? "text" : "password"} value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required className="w-full px-3 py-2 border rounded pr-10" />
+              <input id="newPassword" name="newPassword" type={showNewPassword ? "text" : "password"} value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required className="w-full px-3 py-2 border rounded pr-10" />
               <button
                 type="button"
                 onClick={() => setShowNewPassword(!showNewPassword)}
@@ -67,9 +67,9 @@ export default function ForgotPassword() {
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Confirm Password</label>
+            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">Confirm Password</label>
             <div className="relative">
-              <input type={showConfirmPassword ? "text" : "password"} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required className="w-full px-3 py-2 border rounded pr-10" />
+              <input id="confirmPassword" name="confirmPassword" type={showConfirmPassword ? "text" : "password"} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required className="w-full px-3 py-2 border rounded pr-10" />
               <button
                 type="button"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}

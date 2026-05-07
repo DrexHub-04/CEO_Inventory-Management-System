@@ -14,7 +14,7 @@ export default function Login() {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/login", {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
@@ -53,13 +53,13 @@ export default function Login() {
         <h2 className="text-xl font-semibold mb-4">Admin</h2>
         <form onSubmit={submit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Username</label>
-            <input value={username} onChange={(e) => setUsername(e.target.value)} className="w-full px-3 py-2 border rounded" />
+            <label htmlFor="username" className="block text-sm font-medium text-gray-700">Username</label>
+            <input id="username" name="username" value={username} onChange={(e) => setUsername(e.target.value)} className="w-full px-3 py-2 border rounded" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Password</label>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
             <div className="relative">
-              <input type={showPassword ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} className="w-full px-3 py-2 border rounded pr-10" />
+              <input id="password" name="password" type={showPassword ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} className="w-full px-3 py-2 border rounded pr-10" />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
