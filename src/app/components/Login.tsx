@@ -10,30 +10,33 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const submit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
-      });
-      
-      const data = await res.json();
-      
-      if (!res.ok) {
-        throw new Error(data.error || "Login failed");
-      }
-      
-      setAuth(data.token, data.username);
-      navigate("/");
-    } catch (err) {
-      alert((err as Error).message || "Login failed");
-    } finally {
-      setLoading(false);
+const submit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setLoading(true);
+  try {
+    const API_BASE = import.meta.env.VITE_API_URL 
+      || "https://ceo-inventory-management-system.onrender.com";
+
+    const res = await fetch(`${API_BASE}/api/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+    });
+    
+    const data = await res.json();
+    
+    if (!res.ok) {
+      throw new Error(data.error || "Login failed");
     }
-  };
+    
+    setAuth(data.token, data.username);
+    navigate("/");
+  } catch (err) {
+    alert((err as Error).message || "Login failed");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
   <div className="min-h-screen flex items-center justify-center bg-gray-50 gap-x-16">
