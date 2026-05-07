@@ -22,7 +22,7 @@ export default function ForgotPassword() {
       return;
     }
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/forgot-password`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/forgot-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, newPassword }),
