@@ -6,8 +6,6 @@ const getApiBase = (): string => {
   return `${baseUrl}/api`;
 };
 
-const API_BASE = getApiBase();
-
 // Get token from localStorage
 const getToken = (): string => {
   return localStorage.getItem("inventory_auth_token") || "";
@@ -60,7 +58,7 @@ const transformMongoId = <T extends { _id: string }>(obj: T): Omit<T, '_id'> & {
 // ========== PRODUCTS ==========
 export const getProducts = async (): Promise<Product[]> => {
   try {
-    const res = await fetch(`${API_BASE}/products`, {
+    const res = await fetch(`${getApiBase()}/products`, {
       headers: getAuthHeaders(),
     });
     await handleAuthError(res);
@@ -84,7 +82,7 @@ export const saveProducts = async (products: Product[]): Promise<void> => {
 
 export const getProduct = async (id: string): Promise<Product | undefined> => {
   try {
-    const res = await fetch(`${API_BASE}/products/${id}`, {
+    const res = await fetch(`${getApiBase()}/products/${id}`, {
       headers: getAuthHeaders(),
     });
     await handleAuthError(res);
@@ -119,7 +117,7 @@ export const addProduct = async (product: Omit<Product, "id" | "lastUpdated">): 
     formData.append("notes", product.notes || "");
 
 
-    const res = await fetch(`${API_BASE}/products`, {
+    const res = await fetch(`${getApiBase()}/products`, {
       method: "POST",
       headers: getAuthHeadersForFormData(),
       body: formData,
@@ -147,7 +145,7 @@ export const updateProduct = async (id: string, updates: Partial<Product>): Prom
       }
     });
 
-    const res = await fetch(`${API_BASE}/products/${id}`, {
+    const res = await fetch(`${getApiBase()}/products/${id}`, {
       method: "PUT",
       headers: getAuthHeadersForFormData(),
       body: formData,
@@ -164,7 +162,7 @@ export const updateProduct = async (id: string, updates: Partial<Product>): Prom
 
 export const deleteProduct = async (id: string): Promise<void> => {
   try {
-    const res = await fetch(`${API_BASE}/products/${id}`, { 
+    const res = await fetch(`${getApiBase()}/products/${id}`, { 
       method: "DELETE",
       headers: getAuthHeaders(),
     });
@@ -180,7 +178,7 @@ export const deleteProduct = async (id: string): Promise<void> => {
 // ========== CATEGORIES ==========
 export const getCategories = async (): Promise<Category[]> => {
   try {
-    const res = await fetch(`${API_BASE}/categories`, {
+    const res = await fetch(`${getApiBase()}/categories`, {
       headers: getAuthHeaders(),
     });
     await handleAuthError(res);
@@ -199,7 +197,7 @@ export const saveCategories = async (categories: Category[]): Promise<void> => {
 
 export const addCategory = async (category: Omit<Category, "id">): Promise<Category> => {
   try {
-    const res = await fetch(`${API_BASE}/categories`, {
+    const res = await fetch(`${getApiBase()}/categories`, {
       method: "POST",
       headers: getAuthHeaders(),
       body: JSON.stringify(category),
@@ -216,7 +214,7 @@ export const addCategory = async (category: Omit<Category, "id">): Promise<Categ
 
 export const updateCategory = async (id: string, updates: Partial<Category>): Promise<void> => {
   try {
-    const res = await fetch(`${API_BASE}/categories/${id}`, {
+    const res = await fetch(`${getApiBase()}/categories/${id}`, {
       method: "PUT",
       headers: getAuthHeaders(),
       body: JSON.stringify(updates),
@@ -231,7 +229,7 @@ export const updateCategory = async (id: string, updates: Partial<Category>): Pr
 
 export const deleteCategory = async (id: string): Promise<void> => {
   try {
-    const res = await fetch(`${API_BASE}/categories/${id}`, { 
+    const res = await fetch(`${getApiBase()}/categories/${id}`, { 
       method: "DELETE",
       headers: getAuthHeaders(),
     });
@@ -246,7 +244,7 @@ export const deleteCategory = async (id: string): Promise<void> => {
 // ========== HISTORY ==========
 export const getHistory = async (): Promise<HistoryRecord[]> => {
   try {
-    const res = await fetch(`${API_BASE}/history`, {
+    const res = await fetch(`${getApiBase()}/history`, {
       headers: getAuthHeaders(),
     });
     await handleAuthError(res);
@@ -295,7 +293,7 @@ export const addHistoryRecord = async (record: Omit<HistoryRecord, "id" | "date"
       });
     }
     
-    const res = await fetch(`${API_BASE}/history`, {
+    const res = await fetch(`${getApiBase()}/history`, {
       method: "POST",
       headers: getAuthHeaders(),
       body: JSON.stringify(payload),
@@ -312,7 +310,7 @@ export const addHistoryRecord = async (record: Omit<HistoryRecord, "id" | "date"
 };
 
 export function deleteHistoryRecord(id: string) {
-  return fetch(`${API_BASE}/history/${id}`, { 
+  return fetch(`${getApiBase()}/history/${id}`, { 
     method: "DELETE",
     headers: getAuthHeaders(),
   })
@@ -329,7 +327,7 @@ export function deleteHistoryRecord(id: string) {
 }
 
 export function updateHistoryRecord(updatedRecord: HistoryRecord) {
-  return fetch(`${API_BASE}/history/${updatedRecord.id}`, {
+  return fetch(`${getApiBase()}/history/${updatedRecord.id}`, {
     method: "PUT",
     headers: getAuthHeaders(),
     body: JSON.stringify({
@@ -439,7 +437,7 @@ export const addEquipmentHistory = async (record: Omit<HistoryRecord, "id" | "da
 // ========== EXPORT ==========
 export const exportEquipmentToExcel = async (): Promise<void> => {
   try {
-    const res = await fetch(`${API_BASE}/products/export/excel`, {
+    const res = await fetch(`${getApiBase()}/products/export/excel`, {
       method: "GET",
       headers: getAuthHeadersForDownload(),
     });
@@ -486,7 +484,7 @@ export const exportEquipmentToExcel = async (): Promise<void> => {
 // ========== EXPORT HISTORY ==========
 export const exportHistoryToExcel = async (): Promise<void> => {
   try {
-    const res = await fetch(`${API_BASE}/history/export/excel`, {
+    const res = await fetch(`${getApiBase()}/history/export/excel`, {
       method: "GET",
       headers: getAuthHeadersForDownload(),
     });
