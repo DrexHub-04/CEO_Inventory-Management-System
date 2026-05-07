@@ -2,7 +2,7 @@ import { Product, Category, HistoryRecord } from "../types";
 import { clearAuth } from "./auth";
 
 const getApiBase = (): string => {
-  const baseUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+  const baseUrl = import.meta.env.VITE_API_BASE_URL || "https://ceo-inventory-management-system.onrender.com";
   return `${baseUrl}/api`;
 };
 
