@@ -27,7 +27,26 @@ const JWT_EXPIRY = process.env.JWT_EXPIRY || "24h";
 app.use(helmet({
   contentSecurityPolicy: false, // Disable for localhost development
 }));
-app.use(cors());
+
+// Configure CORS for frontend origins
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://localhost:5173",
+  "https://ceoinventorymanagementsystem.vercel.app",
+  "https://ceoinventorymanagementsystem-*.vercel.app", // Allow preview deployments
+];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin) || /ceoinventorymanagementsystem.*\.vercel\.app/.test(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+}));
+
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use("/uploads", express.static(join(__dirname, "uploads")));
