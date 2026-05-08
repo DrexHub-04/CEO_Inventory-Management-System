@@ -22,7 +22,9 @@ export default function ForgotPassword() {
       return;
     }
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/forgot-password`, {
+      const API_BASE = import.meta.env.VITE_API_BASE_URL
+        || "https://ceo-inventory-management-system.onrender.com";
+      const res = await fetch(`${API_BASE}/api/forgot-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, newPassword }),
