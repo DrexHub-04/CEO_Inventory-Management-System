@@ -14,10 +14,10 @@ const submit = async (e: React.FormEvent) => {
   e.preventDefault();
   setLoading(true);
   try {
-    const API_BASE = import.meta.env.VITE_API_BASE_URL
-      || "https://ceo-inventory-management-system.onrender.com";
-
-    const res = await fetch(`${API_BASE}/api/login`, {
+// ✅ NEW
+    const API_BASE = import.meta.env.VITE_API_URL 
+  || "https://ceo-inventory-management-system.onrender.com";
+   const res = await fetch(`${API_BASE}/api/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),
