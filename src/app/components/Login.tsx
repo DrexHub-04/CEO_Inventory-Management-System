@@ -14,7 +14,7 @@ const submit = async (e: React.FormEvent) => {
   e.preventDefault();
   setLoading(true);
   try {
-    const API_BASE = import.meta.env.VITE_API_BASE_URL
+    const API_BASE = import.meta.env.VITE_API_URL
       || "https://ceo-inventory-management-system.onrender.com";
     const res = await fetch(`${API_BASE}/api/login`, {
       method: "POST",
