@@ -32,13 +32,15 @@ app.use(helmet({
 const allowedOrigins = [
   "http://localhost:3000",
   "http://localhost:5173",
-  "https://ceoinventorymanagementsystem.vercel.app",
-  "https://ceoinventorymanagementsystem-*.vercel.app", // Allow preview deployments
+  "https://ceo-inventory-management-system.vercel.app",
+  "https://ceo-inventory-management-system-*.vercel.app", // Allow preview deployments
 ];
+
+const vercelOriginRegex = /^https:\/\/.*\.vercel\.app$/;
 
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin) || /ceoinventorymanagementsystem.*\.vercel\.app/.test(origin)) {
+    if (!origin || allowedOrigins.includes(origin) || vercelOriginRegex.test(origin)) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
